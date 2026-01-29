@@ -1,0 +1,163 @@
+### Hotel Room Management System - API Test File
+### Base URL: http://localhost:8080/hotel-management/api/v1
+
+### 1. Get all room types
+GET http://localhost:8080/hotel-management/api/v1/room-types
+Accept: application/json
+
+###
+
+### 2. Get active room types
+GET http://localhost:8080/hotel-management/api/v1/room-types/active
+Accept: application/json
+
+###
+
+### 3. Get room type by ID
+GET http://localhost:8080/hotel-management/api/v1/room-types/1
+Accept: application/json
+
+###
+
+### 4. Create new room type
+POST http://localhost:8080/hotel-management/api/v1/room-types
+Content-Type: application/json
+
+{
+  "name": "Economy Room",
+  "description": "Budget-friendly room with essential amenities",
+  "basePrice": 75.00,
+  "maxOccupancy": 2,
+  "sizeSqm": 20,
+  "amenities": "[\"Air Conditioning\", \"TV\", \"WiFi\"]",
+  "imageUrl": "https://example.com/images/economy-room.jpg"
+}
+
+###
+
+### 5. Update room type
+PUT http://localhost:8080/hotel-management/api/v1/room-types/1
+Content-Type: application/json
+
+{
+  "name": "Standard Room Plus",
+  "description": "Enhanced standard room with additional amenities",
+  "basePrice": 120.00,
+  "maxOccupancy": 2,
+  "sizeSqm": 28
+}
+
+###
+
+### 6. Search room types
+GET http://localhost:8080/hotel-management/api/v1/room-types/search?q=deluxe
+Accept: application/json
+
+###
+
+### 7. Get room types by price range
+GET http://localhost:8080/hotel-management/api/v1/room-types/price-range?minPrice=100&maxPrice=200
+Accept: application/json
+
+###
+
+### 8. Get all rooms
+GET http://localhost:8080/hotel-management/api/v1/rooms
+Accept: application/json
+
+###
+
+### 9. Get available rooms
+GET http://localhost:8080/hotel-management/api/v1/rooms/available
+Accept: application/json
+
+###
+
+### 10. Get room by ID
+GET http://localhost:8080/hotel-management/api/v1/rooms/1
+Accept: application/json
+
+###
+
+### 11. Get room by number
+GET http://localhost:8080/hotel-management/api/v1/rooms/number/201
+Accept: application/json
+
+###
+
+### 12. Create new room
+POST http://localhost:8080/hotel-management/api/v1/rooms
+Content-Type: application/json
+
+{
+  "roomNumber": "601",
+  "roomTypeId": 1,
+  "floor": 6,
+  "viewType": "Mountain view",
+  "hasBalcony": false,
+  "wifiPassword": "hotel601",
+  "notes": "Newly renovated room"
+}
+
+###
+
+### 13. Update room status
+PATCH http://localhost:8080/hotel-management/api/v1/rooms/1/status
+Content-Type: application/json
+
+{
+  "status": "MAINTENANCE",
+  "notes": "Scheduled maintenance for bathroom fixtures"
+}
+
+###
+
+### 14. Search rooms with filters
+POST http://localhost:8080/hotel-management/api/v1/rooms/search
+Content-Type: application/json
+
+{
+  "status": "AVAILABLE",
+  "floor": 2,
+  "hasBalcony": true,
+  "minPrice": 100,
+  "maxPrice": 300
+}
+
+###
+
+### 15. Get rooms by status
+GET http://localhost:8080/hotel-management/api/v1/rooms/status/AVAILABLE
+Accept: application/json
+
+###
+
+### 16. Get rooms by floor
+GET http://localhost:8080/hotel-management/api/v1/rooms/floor/2
+Accept: application/json
+
+###
+
+### 17. Get room statistics
+GET http://localhost:8080/hotel-management/api/v1/rooms/statistics
+Accept: application/json
+
+###
+
+### 18. Get rooms needing maintenance
+GET http://localhost:8080/hotel-management/api/v1/rooms/maintenance-needed
+Accept: application/json
+
+###
+
+### 19. Toggle room type status
+PATCH http://localhost:8080/hotel-management/api/v1/room-types/1/toggle-status
+Accept: application/json
+
+###
+
+### 20. Toggle room status
+PATCH http://localhost:8080/hotel-management/api/v1/rooms/1/toggle-status
+Accept: application/json
+
+###

@@ -1,0 +1,125 @@
+spring:
+  application:
+    name: hotel-room-management
+  
+  # Database Configuration
+  datasource:
+    url: jdbc:h2:mem:hoteldb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: password
+  
+  # JPA/Hibernate Configuration
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: true
+        use_sql_comments: true
+    defer-datasource-initialization: true
+  
+  # H2 Console (for development)
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  
+  # SQL initialization
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:data.sql
+
+# Server Configuration
+server:
+  port: 8080
+  servlet:
+    context-path: /hotel-management
+
+# Logging Configuration
+logging:
+  level:
+    com.hotel.roommanagement: DEBUG
+    org.springframework.web: INFO
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+# SpringDoc OpenAPI Configuration
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+  show-actuator: true
+
+# Management/Actuator Configuration
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: when-authorized
+
+# Application Information
+info:
+  app:
+    name: Hotel Room Management System
+    description: RESTful API for managing hotel rooms and room types
+    version: 1.0.0
+    developer: Hotel Management Team
+
+---
+# Production Profile
+spring:
+  config:
+    activate:
+      on-profile: prod
+  
+  datasource:
+    url: jdbc:postgresql://localhost:5432/hotel_management
+    driver-class-name: org.postgresql.Driver
+    username: ${DB_USERNAME:hotel_user}
+    password: ${DB_PASSWORD:hotel_password}
+  
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  
+  h2:
+    console:
+      enabled: false
+
+logging:
+  level:
+    com.hotel.roommanagement: INFO
+    org.springframework.web: WARN
+    org.hibernate.SQL: WARN
+
+---
+# Development Profile
+spring:
+  config:
+    activate:
+      on-profile: dev
+  
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+
+logging:
+  level:
+    com.hotel.roommanagement: DEBUG
